@@ -8,5 +8,8 @@ Systems to implement ( in no particular order):
 
 - [ ] Character movement
 - [ ] Character customization (head/chest/accessories/pants)
+- [ ] Leveling System
 - [ ] Magic system
 - [ ] Dual weapon system
+- [ ] Main menu
+- [ ] Stages (actual levels/worlds)
