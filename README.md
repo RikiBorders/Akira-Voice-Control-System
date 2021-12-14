@@ -4,21 +4,23 @@ multiple platforms, automating a collection of tasks to make life easier
 for users.
  
  Short-term:
- [] Consistently begin listening when 'Akira' is heard
  
- [] Dynamic detection of when users stop speaking
+ [ ] Consistently begin listening when 'Akira' is heard
  
- [] Parse commands
+ [ ] Dynamic detection of when users stop speaking
  
- [] Create command network (storage for all known commands & aliases)
+ [ ] Parse commands
+ 
+ [ ] Create command network (storage for all known commands & aliases)
 
  Long-term:
- [] Internet search functionality
  
- [] Ability to open/close programs, and minimize/maximize
+ [ ] Internet search functionality
  
- [] Integration with various APIs (i.e discord)
+ [ ] Ability to open/close programs, and minimize/maximize
  
- [] Device network (control system managing synced devices)
+ [ ] Integration with various APIs (i.e discord)
  
- [] Remote activation of synced devices
+ [ ] Device network (control system managing synced devices)
+ 
+ [ ] Remote activation of synced devices
