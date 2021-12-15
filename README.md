@@ -19,6 +19,8 @@ for users.
  
  [ ] Ability to open/close programs, and minimize/maximize
  
+ [ ] Implement and connect server to store user-data
+ 
  [ ] Integration with various APIs (i.e discord)
  
  [ ] Device network (control system managing synced devices)
