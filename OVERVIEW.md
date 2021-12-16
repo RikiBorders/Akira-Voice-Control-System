@@ -3,6 +3,12 @@ WIP voice control system. Persistent assistant controlled voice across
 multiple platforms, automating a collection of tasks to make life easier
 for users.
  
+ # Roadmap
+ 
+ Wile exact timelines are not used, short-term roughly translates to any tasks to be completed within 6-8 months, 
+ where long-term tasks are to be completed after a year or greater. Tasks length vary a great deal, and may exceed, 
+ or greatly fall short of these suggestive dealines.
+ 
  Short-term:
  
 - [ ] Consistently begin listening when 'Akira' is heard
