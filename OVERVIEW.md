@@ -38,3 +38,5 @@ for users.
 - [ ] Device network (control system managing synced devices)
  
 - [ ] Remote activation of synced devices
+
+- [ ] Dedicated website with feature showcases, a development blog, and other features.
