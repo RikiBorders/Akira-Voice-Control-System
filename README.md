@@ -7,28 +7,28 @@ for users.
  
 - [ ] Consistently begin listening when 'Akira' is heard
  
- [ ] Dynamic detection of when users stop speaking
+- [ ] Dynamic detection of when users stop speaking
  
- [ ] Parse commands
+- [ ] Parse commands
  
- [ ] Create command network (storage for all known commands & aliases)
+- [ ] Create command network (storage for all known commands & aliases)
 
  Long-term:
  
- [ ] Internet search functionality
+- [ ] Internet search functionality
  
- [ ] Ability to transfer tabs between multiple devices
+- [ ] Ability to transfer tabs between multiple devices
  
- [ ] Ability to open videos on other devices (with respect to timestamps)
+- [ ] Ability to open videos on other devices (with respect to timestamps)
  
- [ ] File requests (retrieve files remotely)
+- [ ] File requests (retrieve files remotely)
  
- [ ] Ability to open/close programs, and minimize/maximize
+- [ ] Ability to open/close programs, and minimize/maximize
  
- [ ] Implement and connect server to store user-data
+- [ ] Implement and connect server to store user-data
  
- [ ] Integration with various APIs (i.e discord)
+- [ ] Integration with various APIs (i.e discord)
  
- [ ] Device network (control system managing synced devices)
+- [ ] Device network (control system managing synced devices)
  
- [ ] Remote activation of synced devices
+- [ ] Remote activation of synced devices
