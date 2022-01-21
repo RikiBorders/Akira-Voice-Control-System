@@ -1,5 +1,5 @@
 # Project-Akira
-WIP voice control system. Persistent assistant controlled voice across
+WIP voice control system. Persistent assistant controlled via voice across
 multiple platforms, automating a collection of tasks to make life easier
 for users.
  
