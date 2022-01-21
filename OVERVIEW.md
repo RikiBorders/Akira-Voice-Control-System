@@ -5,9 +5,9 @@ for users.
  
  # Roadmap
  
- Wile exact timelines are not used, short-term roughly translates to any tasks to be completed within 6-8 months, 
+ While exact timelines are not used, short-term roughly translates to any tasks to be completed within 6-8 months, 
  where long-term tasks are to be completed after a year or greater. Tasks length vary a great deal, and may exceed, 
- or greatly fall short of these suggestive dealines.
+ or greatly fall short of these suggestive deadlines.
  
  Short-term:
  
