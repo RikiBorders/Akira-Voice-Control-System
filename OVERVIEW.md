@@ -11,7 +11,7 @@ for users.
  
  Short-term:
  
-- [ ] Consistently begin listening when 'Akira' is heard
+- [x] Consistently begin listening when 'Akira' is heard
  
 - [ ] Dynamic detection of when users stop speaking
  
