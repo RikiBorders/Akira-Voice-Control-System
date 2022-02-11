@@ -1,23 +1,41 @@
 import speech_recognition as sr
+from pocketsphinx import LiveSpeech
 import re
+import time
+
+
+# Initialize microphone and recognizer
+rc = sr.Recognizer()
+source = sr.Microphone()
+
+
+def callback(rc, audio):
+    print('callback run')
+
+    # key-words to initiate command listening
+    keywords = [('hey akira', 1), ('akira', 1)] 
+    try:
+        speech_as_text = rc.recognize_sphinx(audio, keyword_entries=keywords)
+
+        # Look for your "hey akira" keyword in speech_as_text
+        if "akira" in speech_as_text or "hey akira":
+            print('identified')
+            recognize_main()
+
+    except sr.UnknownValueError:
+        print("Oops! Didn't catch that")
+
+
+def recognize_main():
+    # Begin listening for accompanying command
+    print("Activated. Recognizing main command...")
+    audio_data = rc.listen(source)
+
 
 def mainloop():
-    print('run')
-    
-    # Listen for audio
-    rc = sr.Recognizer()
-    keyword = 'Akira' # keyword to initiate ocmmand listening
-    with sr.Microphone() as source:
-
-        rc.adjust_for_ambient_noise(source, duration=5)
-
-        print('talk')
-        audio = rc.listen(source)
-
-    try:
-        print(rc.recognize_google(audio))
-    except sr.UnknownValueError:
-        print('Audio not understood')
+    print('main run')
+    rc.listen_in_background(source, callback, phrase_time_limit=3)
+    time.sleep(10000) # Time to listen
 
 
 
