@@ -73,6 +73,7 @@ def process_command(command):
 
     result = (None, None)
     parsed = command.split(' ')
+    parsed = strip_prefix(parsed)
 
     if parsed[0] in websearch_kwds or parsed[0]+' '+parsed[1] in websearch_kwds:
         c_type = 'web_search'
@@ -85,6 +86,25 @@ def process_command(command):
         result = (c_type, ' '.join(parsed))
 
     return result
+
+
+def strip_prefix(command):
+    '''
+    PARAMS:
+        command:list: parsed command to process
+    RETURNS:
+        command:list: command stripped of its prefix words
+    DESC:
+        Strip any needless keyword at the start of the command.
+        return the command stripped of its prefix words.
+    '''
+    remove = set(['can you', 'could you', 'will you', 'please', 'uh', 'um'])
+    
+    while command and command[0] in remove:
+        command = command[1:]
+
+
+    return command
 
 
 def mainloop():
