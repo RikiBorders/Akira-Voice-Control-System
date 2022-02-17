@@ -1,4 +1,4 @@
-# Akira - A Cross-platform Voice Control System
+# Akira: A Cross-platform Voice Control System
 
 Voice control system that can be shared across multiple platforms, automating a variety of tasks for users.
 This project aims to automate a variety of tasks for users, and improve general quality of life by connecting 
