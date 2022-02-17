@@ -28,5 +28,5 @@ holds the executable commands.
 
 
 Any commands that Akira executes are held in *commands.py*. Executing internet searches, retrieving files, and finding
-videos are examples of executable commands. Anyting related to voice detection, text to speech, text parsing, etc. 
+videos are examples of executable commands. Anything related to voice detection, text to speech, text parsing, etc. 
 Are contained within *prototype_v1.py*.
