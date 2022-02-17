@@ -73,8 +73,9 @@ def process_command(command):
 
     result = (None, None)
     parsed = command.split(' ')
-    parsed = strip_prefix(parsed)
+    # parsed = strip_prefix(parsed)
 
+    # Execute web search
     if parsed[0] in websearch_kwds or parsed[0]+' '+parsed[1] in websearch_kwds:
         c_type = 'web_search'
 
@@ -88,26 +89,28 @@ def process_command(command):
     return result
 
 
-def strip_prefix(command):
+def strip_prefix(command, commands):
     '''
     PARAMS:
         command:list: parsed command to process
+        commands:set: set of first words for each command. For example, the 
+                      command 'What's the weather like' would store 'What's'
+                      in this set.
     RETURNS:
-        command:list: command stripped of its prefix words
+        command:list: command stripped of its prefix words. This can also
+                      return null.
     DESC:
-        Strip any needless keyword at the start of the command.
-        return the command stripped of its prefix words.
+        Iteratively pop the first element on the command list
+        until the first word matches the first word of some command
+        in commands
     '''
-    remove = set(['can you', 'could you', 'will you', 'please', 'uh', 'um'])
-    
-    while command and command[0] in remove:
+    while command and command[0] not in commands:
         command = command[1:]
-
 
     return command
 
 
-def mainloop():
+def main():
     '''
     PARAMS: None
     RETURNS: None
@@ -121,4 +124,4 @@ def mainloop():
     time.sleep(10000) # Time to listen
 
 
-mainloop()
+main()
