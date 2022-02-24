@@ -1,0 +1,10 @@
+{
+    "commands":
+    [
+        {"what":"what time is it", "cmd":"None"},
+        {"what":"what is the temperature", "cmd":"None"},
+        {"look":"look up", "cmd":"web_search"},
+        {"search":"search", "cmd":"web_search"},
+        {"google":"google", "cmd":"web_search"}
+    ]
+}
