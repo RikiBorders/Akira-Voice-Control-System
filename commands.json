@@ -1,10 +1,10 @@
 {
     "commands":
     [
-        {"what":"what time is it", "cmd":"None"},
-        {"what":"what is the temperature", "cmd":"None"},
-        {"look":"look up", "cmd":"web_search"},
-        {"search":"search", "cmd":"web_search"},
-        {"google":"google", "cmd":"web_search"}
+        {"first":"what", "full":"what time is it", "cmd":"None"},
+        {"first":"what", "full":"what is the temperature", "cmd":"None"},
+        {"first":"look", "full":"look up", "cmd":"web_search"},
+        {"first":"search", "full":"search", "cmd":"web_search"},
+        {"first":"google", "full":"google", "cmd":"web_search"}
     ]
 }
