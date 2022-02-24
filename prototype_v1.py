@@ -3,6 +3,7 @@ from pocketsphinx import LiveSpeech
 import re
 import time
 from commands import *
+import json
 
 # Initialize microphone and recognizer
 rc = sr.Recognizer()
@@ -75,6 +76,14 @@ def process_command(command):
     parsed = command.split(' ')
     # parsed = strip_prefix(parsed)
 
+
+    # JSON FORMATTING
+    # JSON file is formatted with the first word of the command as the key,
+    # and the value as the full command. Furthermore, each word/command pair
+    # also has a command k/v pair, formatted as "cmd":"c_type", where
+    # "c_type" is the command to be executed, and identified by this function
+    # (process_command)  
+
     # Execute web search
     if parsed[0] in websearch_kwds or parsed[0]+' '+parsed[1] in websearch_kwds:
         c_type = 'web_search'
@@ -110,6 +119,35 @@ def strip_prefix(command, commands):
     return command
 
 
+def build_cmd_map():
+    '''
+    PARAMS: None
+    RETURNS: cmd_map:dict: Hashmap containing all commands
+    DESC:
+        This function will build the command map used for identifying commands.
+        The key in cmd_map is the first word of the command. the value
+        is a list of commands that share the same first word, & the command. I.e 
+        'what time is it' and 'what is the temperature' would be stored
+        as: cmd_map[what] = [('what time is it', c_type), ('what is the temperature', c_type)]
+    '''
+    cmd_map = {}
+
+    # Read in JSON file 
+    json_file = open('commands.json')
+    data = json.load(json_file)
+
+    for subdict in data['commands']: # Parse & add commands to command map
+        if subdict['first'] not in cmd_map:
+            cmd_map[subdict['first']] = [(subdict['full'], subdict['cmd'])]
+
+        else: # Add to existing key
+            cmd_map[subdict['first']].append((subdict['full'], subdict['cmd']))
+
+    json_file.close()
+    print(cmd_map)
+    return cmd_map
+
+
 def main():
     '''
     PARAMS: None
@@ -120,8 +158,9 @@ def main():
         background for the user to initiate command to Akira.
     '''
     # Create background thread for command listening
-    rc.listen_in_background(source, callback, phrase_time_limit=3)
-    time.sleep(10000) # Time to listen
+    build_cmd_map()
+    # rc.listen_in_background(source, callback, phrase_time_limit=3)
+    # time.sleep(10000) # Time to listen
 
 
 main()
