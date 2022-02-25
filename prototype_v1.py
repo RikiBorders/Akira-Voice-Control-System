@@ -74,10 +74,14 @@ def process_command(command):
     result = (None, None)
 
     parsed = command.split(' ')
-    # parsed = strip_prefix(parsed)
+    parsed = strip_prefix(parsed, cmd_map)
 
-    if parsed[0] not in cmd_map: # Check if command is valid
+    if not parsed: 
         return result
+
+    elif parsed[0] not in cmd_map: # Check if command is valid
+        return result
+
     else:
         
         # Get the target command
@@ -98,9 +102,9 @@ def strip_prefix(command, commands):
     '''
     PARAMS:
         command:list: parsed command to process
-        commands:set: set of first words for each command. For example, the 
-                      command 'What's the weather like' would store 'What's'
-                      in this set.
+        commands:dict: dictionary containing all commands. key = first word
+                       of the command, and value is a list of tuples formatted
+                       as: (full command string, c_type)
     RETURNS:
         command:list: command stripped of its prefix words. This can also
                       return null.
@@ -124,7 +128,7 @@ def build_cmd_map():
         The key in cmd_map is the first word of the command. the value
         is a list of commands that share the same first word, & the command. I.e 
         'what time is it' and 'what is the temperature' would be stored
-        as: cmd_map[what] = [('what time is it', c_type), ('what is the temperature', c_type)]
+        as: cmd_map['what'] = [('what time is it', c_type), ('what is the temperature', c_type)]
     '''
 
     # JSON FORMATTING
