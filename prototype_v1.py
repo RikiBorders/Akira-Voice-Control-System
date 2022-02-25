@@ -24,16 +24,12 @@ def callback(rc, audio):
     # key-words to initiate command listening
     keywords = [('hey akira', 1), ('akira', 1)] 
     
-    try:
+    try: # If keyword match is found, listen for a command
         speech_as_text = rc.recognize_sphinx(audio, keyword_entries=keywords)
-
-        # Look for your "hey akira" keyword in speech_as_text
-        if "akira" in speech_as_text or "hey akira":
-            recognize_main()
+        recognize_main()
 
     except sr.UnknownValueError:
         print("Speech unrecognizable")
-
 
 
 def recognize_main():
