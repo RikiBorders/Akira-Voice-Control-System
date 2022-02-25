@@ -53,7 +53,8 @@ def recognize_main():
 
     # Identify command type
     c_type, terms = process_command(command)
-    if c_type == 'web_search':
+    
+    if c_type == 'web_search' and terms:
         web_search(terms)
     else:
         print('unknown')
@@ -70,19 +71,15 @@ def process_command(command):
     DESC: Process command type
     ''' 
     cmd_map = build_cmd_map()
+    result = (None, None)
 
     parsed = command.split(' ')
     # parsed = strip_prefix(parsed)
 
     if parsed[0] not in cmd_map: # Check if command is valid
-        return None, None
+        return result
     else:
-        result = (None, None)
-
-        # IT WOULD BE BEST TO INTRODUCE REGEX TO DO COMMAND MATCHING IN THE BELOW LOOP. 
-        # FOR THE TIME BEING, THIS TYPE OF PARSING WILL SUFFICE (CURRENTLY
-        # AIMING FOR FUNTIONALITY)
-
+        
         # Get the target command
         for elem in cmd_map[parsed[0]]:
             full_cmd = elem[0].split(' ')
@@ -93,21 +90,6 @@ def process_command(command):
                 # full command has been matched
                 elif i == len(full_cmd)-1 and full_cmd[i] == parsed[i]: 
                     return (elem[1], ' '.join(parsed[i+1:]) ) # convert the command (in list form) into string w/o command stub
-
-
-
-
-
-    # Execute web search
-    # if parsed[0] in websearch_kwds or parsed[0]+' '+parsed[1] in websearch_kwds:
-    #     c_type = 'web_search'
-
-    #     if parsed[0] in websearch_kwds:
-    #         parsed.pop(0)
-    #     else:
-    #         parsed = parsed[2:]
-
-    #     result = (c_type, ' '.join(parsed))
 
     return result
 
