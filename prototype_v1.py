@@ -53,7 +53,6 @@ def recognize_main():
 
     # Identify command type
     c_type, terms = process_command(command)
-
     if c_type == 'web_search':
         web_search(terms)
     else:
@@ -70,30 +69,45 @@ def process_command(command):
             clipped:string: full command with identifying keyword stub removed
     DESC: Process command type
     ''' 
-    websearch_kwds = set(['look up', 'google', 'search'])
+    cmd_map = build_cmd_map()
 
-    result = (None, None)
     parsed = command.split(' ')
     # parsed = strip_prefix(parsed)
 
+    if parsed[0] not in cmd_map: # Check if command is valid
+        return None, None
+    else:
+        result = (None, None)
 
-    # JSON FORMATTING
-    # JSON file is formatted with the first word of the command as the key,
-    # and the value as the full command. Furthermore, each word/command pair
-    # also has a command k/v pair, formatted as "cmd":"c_type", where
-    # "c_type" is the command to be executed, and identified by this function
-    # (process_command)  
+        # IT WOULD BE BEST TO INTRODUCE REGEX TO DO COMMAND MATCHING IN THE BELOW LOOP. 
+        # FOR THE TIME BEING, THIS TYPE OF PARSING WILL SUFFICE (CURRENTLY
+        # AIMING FOR FUNTIONALITY)
+
+        # Get the target command
+        for elem in cmd_map[parsed[0]]:
+            full_cmd = elem[0].split(' ')
+
+            for i in range(len(parsed)):
+                if i == len(full_cmd): break
+                
+                # full command has been matched
+                elif i == len(full_cmd)-1 and full_cmd[i] == parsed[i]: 
+                    return (elem[1], ' '.join(parsed[i+1:]) ) # convert the command (in list form) into string w/o command stub
+
+
+
+
 
     # Execute web search
-    if parsed[0] in websearch_kwds or parsed[0]+' '+parsed[1] in websearch_kwds:
-        c_type = 'web_search'
+    # if parsed[0] in websearch_kwds or parsed[0]+' '+parsed[1] in websearch_kwds:
+    #     c_type = 'web_search'
 
-        if parsed[0] in websearch_kwds:
-            parsed.pop(0)
-        else:
-            parsed = parsed[2:]
+    #     if parsed[0] in websearch_kwds:
+    #         parsed.pop(0)
+    #     else:
+    #         parsed = parsed[2:]
 
-        result = (c_type, ' '.join(parsed))
+    #     result = (c_type, ' '.join(parsed))
 
     return result
 
@@ -130,6 +144,13 @@ def build_cmd_map():
         'what time is it' and 'what is the temperature' would be stored
         as: cmd_map[what] = [('what time is it', c_type), ('what is the temperature', c_type)]
     '''
+
+    # JSON FORMATTING
+    # JSON file is formatted with the first word of the command as the key,
+    # and the value as the full command. Furthermore, each word/command pair
+    # also has a command k/v pair, formatted as "cmd":"c_type", where
+    # "c_type" is the command to be executed, and identified by this function
+    # (process_command)  
     cmd_map = {}
 
     # Read in JSON file 
@@ -144,7 +165,6 @@ def build_cmd_map():
             cmd_map[subdict['first']].append((subdict['full'], subdict['cmd']))
 
     json_file.close()
-    print(cmd_map)
     return cmd_map
 
 
@@ -158,9 +178,8 @@ def main():
         background for the user to initiate command to Akira.
     '''
     # Create background thread for command listening
-    build_cmd_map()
-    # rc.listen_in_background(source, callback, phrase_time_limit=3)
-    # time.sleep(10000) # Time to listen
+    rc.listen_in_background(source, callback, phrase_time_limit=3)
+    time.sleep(10000) # Time to listen
 
 
 main()
