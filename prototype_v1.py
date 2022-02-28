@@ -53,7 +53,7 @@ def recognize_main():
     if c_type == 'web_search' and terms:
         web_search(terms)
     else:
-        print('unknown')
+        print(f'Command "{command}" unknown.')
     
 
 def process_command(command):
