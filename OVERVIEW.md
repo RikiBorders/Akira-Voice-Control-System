@@ -17,11 +17,11 @@ for users.
  
 - [ ] Parse commands
  
-- [ ] Create command network (storage for all known commands & aliases)
+- [x] Create command network (storage for all known commands & aliases)
 
  Long-term:
  
-- [ ] Internet search functionality
+- [x] Internet search functionality
  
 - [ ] Ability to transfer tabs between multiple devices
  
