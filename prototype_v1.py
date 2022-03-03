@@ -72,14 +72,10 @@ def process_command(command):
     parsed = command.split(' ')
     parsed = strip_prefix(parsed, cmd_map)
 
-    if not parsed: 
-        return result
-
-    elif parsed[0] not in cmd_map: # Check if command is valid
+    if not parsed or parsed[0] not in cmd_map: # Check cmd validity
         return result
 
     else:
-        
         # Get the target command
         for elem in cmd_map[parsed[0]]:
             full_cmd = elem[0].split(' ')
