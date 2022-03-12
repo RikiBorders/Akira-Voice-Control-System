@@ -52,6 +52,14 @@ def recognize_main():
     
     if c_type == 'web_search' and terms:
         web_search(terms)
+
+    elif c_type == 'mute' and terms: # terms = application name
+        toggle_mute(True, terms)
+    
+    elif c_type == 'unmute' and terms: # terms = application name
+        toggle_mute(False, terms)
+
+    
     else:
         print(f'Command "{command}" unknown.')
     
@@ -64,7 +72,8 @@ def process_command(command):
         result:tuple: Contains the following data:
             c_type:string: command type
             clipped:string: full command with identifying keyword stub removed
-    DESC: Process command type
+    DESC: 
+        Process command type. Also identify if parameters exist for the given command.
     ''' 
     cmd_map = build_cmd_map()
     result = (None, None)
@@ -72,20 +81,29 @@ def process_command(command):
     parsed = command.split(' ')
     parsed = strip_prefix(parsed, cmd_map)
 
-    if not parsed or parsed[0] not in cmd_map: # Check cmd validity
+    if not parsed or parsed[0] not in cmd_map: # If cmd is empty or doesn't exist return null tuple
         return result
 
     else:
-        # Get the target command
+        # Get the target command. (elem = the command tuple)
+        # elem[0] = full command as a string; elem[1] = command type; elem[2] = bool indicating
+        # if the command has parameters or not
         for elem in cmd_map[parsed[0]]:
             full_cmd = elem[0].split(' ')
+
 
             for i in range(len(parsed)):
                 if i == len(full_cmd): break
                 
-                # full command has been matched
+                # If we reach the end of the full command and it ends the same as parsed (the spoken command),
+                # then we have a match
                 elif i == len(full_cmd)-1 and full_cmd[i] == parsed[i]: 
-                    return (elem[1], ' '.join(parsed[i+1:]) ) # convert the command (in list form) into string w/o command stub
+                    return (elem[1], ''.join(parsed[i+1:])) # return command as a string w/o command stub (first word)
+
+                # If we match a command, but there are still more words to process, check if this command has 
+                # parameters. If so, we have a match
+                elif i < len(full_cmd) and full_cmd[i] == parsed[i] and elem[2]:
+                    return (elem[1], ''.join(parsed[i+1:]))
 
     return result
 
@@ -137,10 +155,10 @@ def build_cmd_map():
 
     for subdict in data['commands']: # Parse & add commands to command map
         if subdict['first'] not in cmd_map:
-            cmd_map[subdict['first']] = [(subdict['full'], subdict['cmd'])]
+            cmd_map[subdict['first']] = [(subdict['full'], subdict['cmd'], subdict['params'])]
 
         else: # Add to existing key
-            cmd_map[subdict['first']].append((subdict['full'], subdict['cmd']))
+            cmd_map[subdict['first']].append((subdict['full'], subdict['cmd'], subdict['params']))
 
     json_file.close()
     return cmd_map

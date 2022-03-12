@@ -1,10 +1,12 @@
 {
     "commands":
     [
-        {"first":"what", "full":"what time is it", "cmd":"None"},
-        {"first":"what", "full":"what is the temperature", "cmd":"None"},
-        {"first":"look", "full":"look up", "cmd":"web_search"},
-        {"first":"search", "full":"search", "cmd":"web_search"},
-        {"first":"google", "full":"google", "cmd":"web_search"}
+        {"first":"what", "full":"what time is it", "cmd":"None", "params":false},
+        {"first":"what", "full":"what is the temperature", "cmd":"None", "params":false},
+        {"first":"look", "full":"look up", "cmd":"web_search", "params":false},
+        {"first":"search", "full":"search", "cmd":"web_search", "params":false},
+        {"first":"google", "full":"google", "cmd":"web_search", "params":false},
+        {"first":"mute", "full":"mute", "cmd":"mute", "params":true},
+        {"first":"unmute", "full":"unmute", "cmd":"unmute", "params":true}
     ]
 }

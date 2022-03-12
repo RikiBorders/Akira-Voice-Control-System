@@ -112,6 +112,8 @@ def run_tests():
     # Invalid params for mute (run_error)
     case9 = TestCase(['Eggs and ham', 1337, 'extra parameter'], toggle_mute, 'Extra Parameter + incorrect parameter types', 'Function should not execute at all')
 
+    # Command processing tests (not added yet)
+
     # Run tests
     # case1.run() 
     # case2.run()

@@ -52,7 +52,7 @@ def toggle_mute(action, app):
           order to hear the changes take place.
     '''
     sessions = AudioUtilities.GetAllSessions()
-            
+    
     if action:
         # Find target app and mute
         for session in sessions:
