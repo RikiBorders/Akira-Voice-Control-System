@@ -25,7 +25,7 @@ If you have any additional questions, feel free to contact me! (Contact info not
 
 ### Adding Commands
 
-Adding commands can be confusing at first, but after adding a command things become clear. When implementing the command itself (i.e, the function called by akira such as a web search), write the function itself and any accompanying functions in [commands.py](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/commands.py). When the command has been implemented, it must be added to the 'command map'. The command map is a dictionary that stores all commands. To add a command to the command map, create a new sub-dictionary to [commands.json](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/commands.json). Key descriptions can be found directly below:
+Adding commands can be confusing at first, but after adding a command the process should become much more clear. When implementing the command itself (i.e, the function called by akira such as a web search), write the function itself and any accompanying functions in [commands.py](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/commands.py). When the command has been implemented, it must be added to the 'command map'. The command map is a dictionary that stores all commands. To add a command to the command map, create a new sub-dictionary to [commands.json](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/commands.json). Key descriptions can be found directly below:
 
 - "first": the first word of the command (even if the command is only one word long)
 - "full": the entire command (parameters do not need to be included in the value for this key)
