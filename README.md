@@ -23,6 +23,17 @@ for the entire duration of this project's development.
 General feature requests or contributions can be submitted by the [Issues tab](https://github.com/RikiBorders/Akira-Voice-Control-System/issues).
 If you have any additional questions, feel free to contact me! (Contact info not yet uploaded)
 
+### Adding Commands
+
+Adding commands can be confusing at first, but after adding a command the process should become much more clear. When implementing the command itself (i.e, the function called by akira such as a web search), write the function itself and any accompanying functions in [commands.py](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/commands.py). When the command has been implemented, it must be added to the 'command map'. The command map is a dictionary that stores all commands. To add a command to the command map, create a new sub-dictionary to [commands.json](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/commands.json). Key descriptions can be found directly below:
+
+- "first": the first word of the command (even if the command is only one word long)
+- "full": the entire command (parameters do not need to be included in the value for this key)
+- "cmd": After Akira parses commands, this string is returned to signal what command to execute. In other words, "cmd" is used to signal what function to call when the command            is identified
+- "params": Boolean indicating if the command has parameters or not. Parameters always come after the command stub. For example, consider the command "Look up how to ride a bike". "Look up" would be the command stub (there is an entry where the full command is "look up"), and "how to ride a bike" would be the parameter.
+
+After the command function is written, and the command is added to the json file, the function associated with the command can be called in the *recognize_main* function in [prototype_v1.py](https://github.com/RikiBorders/Akira-Voice-Control-System/blob/main/prototype_v1.py). This is done by creating a new 'elif' case in *recognize_main*, and calling the function associated with the command within the elif case.
+
 ## Usage
 
 To use Akira, simply clone this repository and run the *prototype_v1.py* file. This file relies on *commands.py*, which
