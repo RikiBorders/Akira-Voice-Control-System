@@ -12,11 +12,11 @@ from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 import time
 
 
-##################################################################
-#
-# The functions below are commands intended for use with Windows OS
-#
-##################################################################
+#####################################################################
+#                                                                   #
+# The functions below are commands intended for use with Windows OS #
+#                                                                   #
+#####################################################################
 
 def web_search(terms):
     '''
@@ -86,63 +86,65 @@ def change_volume(action, app):
         action:bool: if true, increase application volume. Decrease if false.
         app:str: name of the application whos volume will be modified. If NoneType, then
                  increase/decrease volume of all applications. This string does not include
-                 file extensions (like: .exe)
-    RETURNS:
-        None
+                 file extensions (i.e: .exe)
+    RETURNS: None
     DESC: Increase or decrease the volume level of the application 
-          with the name passed as the 'app' parameter. 
+          with the name passed as the 'app' parameter.
     '''
     sessions = AudioUtilities.GetAllSessions()
             
     if action:
         # Find target app and adjust volume
         for session in sessions:
-            devices = AudioUtilities.GetSpeakers()
-            interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-            volume = cast(interface, POINTER(IAudioEndpointVolume))
-
-
-            level = volume.GetMasterVolumeLevel()
-            if not app: # Increase all
-                try:
-                    volume.SetMasterVolumeLevel(level+2, None)
-                    break
-                except Exception as e:
-                    if str(type(e)) == "<class '_ctypes.COMError'>": print('Volume at max')
-                    else: raise NameError('Unhandled exception encountered in change_volume')
+            
+            # Increase all
+            if not app: 
+                devices = AudioUtilities.GetSpeakers()
+                interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+                volume = cast(interface, POINTER(IAudioEndpointVolume))
+                
+                level = volume.GetMasterVolumeLevel()
+                level = min(0, level+1) # 0 = max volume 
+                volume.SetMasterVolumeLevel(level, None)  
+                break
 
             # Increase Volume of specified application
             elif session.Process and session.Process.name().upper() == (app+'.exe').upper(): 
-                try:
-                    volume.SetMasterVolumeLevel(level+2, None)
-                except Exception as e:
-                    if str(type(e)) == "<class '_ctypes.COMError'>": print('Volume at max')
-                    else: raise NameError('Unhandled exception encountered in change_volume')
-                
+                # Get app audio interface and modify
+                t_interface = session.SimpleAudioVolume
+                volume = t_interface.GetMasterVolume()
+                level = min(1.0, volume + 0.1) # 1.0 = max volume
+
+                t_interface.SetMasterVolume(level, None)
                 break
 
     else:
         # Find target app and adjust volume
         for session in sessions:
-            devices = AudioUtilities.GetSpeakers()
-            interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-            volume = cast(interface, POINTER(IAudioEndpointVolume))
+            
+            # Decrease all
+            if not app: 
+                # Get audio interface and modify
+                devices = AudioUtilities.GetSpeakers()
+                interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+                volume = cast(interface, POINTER(IAudioEndpointVolume))
 
-
-            if not app: # decrease all
                 level = volume.GetMasterVolumeLevel()
-                try:
-                    volume.SetMasterVolumeLevel(level-2, None)
-                    break
-                except Exception as e:
-                    if str(type(e)) == "<class '_ctypes.COMError'>": print('Volume at zero')
-                    else: raise NameError('Unhandled exception encountered in change_volume')
+                level = max(-65.25, level - 5.5)
+                volume.SetMasterVolumeLevel(level, None)
+                break
 
             # Decrease Volume of specified application
             elif session.Process and session.Process.name().upper() == (app+'.exe').upper(): 
-                pass
+                # Get app audio interface and modify
+                t_interface = session.SimpleAudioVolume
+                volume = t_interface.GetMasterVolume()
+                level = max(0, volume - 0.1) # 0 = min volume
+
+                t_interface.SetMasterVolume(level, None)
+                break
 
 
 
-change_volume(1, 'chrome')
+change_volume(0, 'chrome')
 # change_volume(1, None)
