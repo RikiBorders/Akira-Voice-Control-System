@@ -98,6 +98,9 @@ def run_tests():
     # Mute tests for master volume
     case1 = TestCase([True, None], toggle_mute, 'Mute All', 'Mute Master Volume (mutes everything)')
     case2 = TestCase([False, None], toggle_mute, 'Unmute All', 'Unmute Master Volume (unmutes everything)')
+    case1_1 = TestCase([True, ''], toggle_mute, 'Mute All', 'Mute Master Volume (mutes everything)')
+    case2_2 = TestCase([False, ''], toggle_mute, 'Unmute All', 'Unmute Master Volume (unmutes everything)')
+
 
     # Mute tests for specific applications
     case3 = TestCase([True, 'chrome'], toggle_mute, 'Mute Google Chrome', 'Mute Google Chrome Volume')
@@ -116,12 +119,14 @@ def run_tests():
 
     # Run tests
     # case1.run() 
+    case1_1.run()
+    case2_2.run()
     # case2.run()
     # case3.run()
     # case4.run()
     # case5.run()
     # case6.run()
-    case9.run_error(True)
+    # case9.run_error(True)
 
 
 if __name__ == "__main__":
