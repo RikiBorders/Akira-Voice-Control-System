@@ -9,7 +9,8 @@ from termcolor import colored # Color terminal text (makes tests look cool and e
 
 class TestCase():
     ''' 
-    Generic Test case class. This class can be expanded
+    Generic Test case class. Ensures return values 
+    return what is expected. This class can be expanded
     to facilitate more complex test cases.
     '''
 
@@ -60,11 +61,34 @@ class TestCase():
                 return 0
 
         except Exception as e:
-            print('!!!ERROR THROWN. Test case failed:\n')
+            print(colored('!!!ERROR THROWN. Test case failed:\n', 'red'))
             print(f'Error: {e}')
             traceback.print_exc()
             return 0
 
+    def run_error(self, show_error = False):
+        '''
+        PARAMS: show_error:bool: If true, display error message if encountered.
+        RETURNS: None
+        DESC: 
+            This method expects self.function to encounter an error when running.
+            This testing method was implemented to ensure invalid parameters do not
+            result in accidental returns, which would result in unexpected behavior
+        '''
+        print(f'Executing test: {self.test_name}\nDescription: {self.desc}')
+        try:
+            result = self.function(*self.parameters) # Invoke function
+            # False positive
+            print(colored('Test case failed', 'red'))
+            print(colored(f'Error expected yet function returned result: {result}\n', 'red'))
+
+        except Exception as e:
+            print(colored('Test case passed (Error thrown)\n', 'green'))
+            if show_error:
+                print(f'Error: {e}\n')
+                traceback.print_exc()
+                print()
+            
 
 ############### WINDOWS TESTS ###############
 
@@ -85,14 +109,17 @@ def run_tests():
     case7 = TestCase([True, 'jvodsvjds jjen q'], toggle_mute, 'Mute non-existent', 'Try to mute nonexistent application')
     case8 = TestCase([False, 'jvodsvjds jjen q'], toggle_mute, 'Unmute non-existent', 'Try to Unmute nonexistent application')
 
+    # Invalid params for mute (run_error)
+    case9 = TestCase(['Eggs and ham', 1337, 'extra parameter'], toggle_mute, 'Extra Parameter + incorrect parameter types', 'Function should not execute at all')
 
     # Run tests
-    case1.run() 
-    case2.run()
-    case3.run()
-    case4.run()
-    case5.run()
-    case6.run()
+    # case1.run() 
+    # case2.run()
+    # case3.run()
+    # case4.run()
+    # case5.run()
+    # case6.run()
+    case9.run_error(True)
 
 
 if __name__ == "__main__":
