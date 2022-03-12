@@ -53,10 +53,10 @@ def recognize_main():
     if c_type == 'web_search' and terms:
         web_search(terms)
 
-    elif c_type == 'mute' and terms: # terms = application name
+    elif c_type == 'mute': # terms = application name
         toggle_mute(True, terms)
     
-    elif c_type == 'unmute' and terms: # terms = application name
+    elif c_type == 'unmute': # terms = application name
         toggle_mute(False, terms)
 
     
